@@ -1,3 +1,5 @@
+import mongoose, { Document } from "mongoose";
+
 export interface IProduct {
   name: string;
   price: number; // rounded of to two decimal points i.e cents
@@ -18,7 +20,7 @@ export interface ITransaction {
   reference?: string;
 }
 
-interface IBillingAddress {
+export interface IBillingAddress {
   street: string;
   city: string;
   province: string;
@@ -26,7 +28,7 @@ interface IBillingAddress {
   country: string;
 }
 
-interface IBankingDetails {
+export interface IBankingDetails {
   bankName: string;
   accountNumber: string;
   accountType: "Savings" | "Current" | string;
@@ -36,9 +38,9 @@ interface IBankingDetails {
   billingAddress?: IBillingAddress;
 }
 
-interface IBaseUser {
-  firstname: string;
-  lastname: string;
+export interface IBaseUser extends Document {
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 }
