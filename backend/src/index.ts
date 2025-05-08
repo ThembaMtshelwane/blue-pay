@@ -6,7 +6,7 @@ import { Request, Response } from "express";
 import { PORT } from "./consts/env.consts";
 import connectDB from "./config/db";
 import authRoutes from "./routes/auth.route";
-import { notFound, errorHandler } from "./middleware/errorMiddleware";
+import { notFound, errorHandler } from "./middleware/error.middleware";
 
 connectDB();
 const app = express();
