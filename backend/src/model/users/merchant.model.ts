@@ -27,6 +27,11 @@ MerchantSchema.add({
       default: null,
     },
   ], // id of transaction ITransaction[];
+  applicationStatus: {
+    type: String,
+    default: "pending",
+    required: true,
+  },
 });
 
 const Merchant: Model<IMerchant> = mongoose.model<IMerchant>(
