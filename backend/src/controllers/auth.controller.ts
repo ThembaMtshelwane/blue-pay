@@ -1,36 +1,35 @@
 import expressAsyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 import User from "../schema/baseSchema";
+import { INTERNAL_SERVER_ERROR } from "../consts/http.codes";
+import HTTP_Error from "../utils/httpError";
 
 export const registerUser = expressAsyncHandler(
   async (req: Request, res: Response) => {
-    console.log("req.body  ", req.body);
-
     const { firstName, lastName, email } = req.body;
-
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      res.status(400).json({ message: "User already exists" });
+      throw new HTTP_Error("User already exists", INTERNAL_SERVER_ERROR);
     }
     const generatedPassword = "123";
 
-    try {
-      const newUser = await User.create({
-        firstName,
-        lastName,
-        email,
-        password: generatedPassword,
-      });
+    const newUser = await User.create({
+      firstName,
+      lastName,
+      email,
+      password: generatedPassword,
+    });
 
-      res.status(201).json({
-        message: "User created successfully",
-        user: {
-          id: newUser._id,
-          email: newUser.email,
-        },
-      });
-    } catch (error) {
-      res.status(500).json({ message: "Failed to create user" });
+    if (!newUser) {
+      throw new HTTP_Error("Failed to create user", INTERNAL_SERVER_ERROR);
     }
+
+    res.status(201).json({
+      message: "User created successfully",
+      user: {
+        id: newUser._id,
+        email: newUser.email,
+      },
+    });
   }
 );
