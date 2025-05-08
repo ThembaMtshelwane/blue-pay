@@ -55,9 +55,9 @@ export interface IMerchant extends IBaseUser {
   companyID: string;
   businessBankingDetails?: IBankingDetails;
   products?: string[]; // id of products IProduct[];
-  trnasactions: string[]; // id of customer-merchant transactions ITransaction[];
+  transactions: string[]; // id of customer-merchant transactions ITransaction[];
 }
 
 export interface IAdmin extends IBaseUser {
-  trnasactions: string[]; // id of all of customer-merchant transactions ITransaction[];
+  // transactions: string[]; // id of all of customer-merchant transactions ITransaction[];
 }

@@ -1,11 +1,11 @@
 import mongoose, { Model, Schema } from "mongoose";
 import { IMerchant } from "../../utils/definitions";
-import { BaseUserSchema } from "../../schema/baseSchema";
+import { BaseUserSchema } from "./user.model";
 
-const merchantSchema: Schema<IMerchant> =
+const MerchantSchema: Schema<IMerchant> =
   BaseUserSchema.clone() as Schema<IMerchant>;
 
-merchantSchema.add({
+MerchantSchema.add({
   companyName: { type: String },
   companyID: { type: String },
   businessBankingDetails: {
@@ -20,7 +20,7 @@ merchantSchema.add({
       default: null,
     },
   ], // id of products IProduct[];
-  trnasactions: [
+  transactions: [
     {
       type: Schema.Types.ObjectId,
       ref: "Transaction",
@@ -31,7 +31,7 @@ merchantSchema.add({
 
 const Merchant: Model<IMerchant> = mongoose.model<IMerchant>(
   "Merchant",
-  merchantSchema
+  MerchantSchema
 );
 
 export default Merchant;

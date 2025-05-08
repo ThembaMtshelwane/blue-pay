@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IBaseUser } from "../utils/definitions";
+import { IBaseUser } from "../../utils/definitions";
 import bcrypt from "bcryptjs";
 
 export const BaseUserSchema: Schema<IBaseUser> = new Schema<IBaseUser>(

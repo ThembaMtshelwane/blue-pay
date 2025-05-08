@@ -1,6 +1,6 @@
 import expressAsyncHandler from "express-async-handler";
 import { Request, Response } from "express";
-import User from "../schema/baseSchema";
+import User from "../model/users/user.model";
 import { INTERNAL_SERVER_ERROR } from "../consts/http.codes";
 import HTTP_Error from "../utils/httpError";
 
