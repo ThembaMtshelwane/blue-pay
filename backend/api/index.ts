@@ -18,7 +18,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRoutes);
 
 app.get("/api", (req: Request, res: Response) => {
-  res.send("Hello World xxx");
+  res.send("Hello World XXX");
 });
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
