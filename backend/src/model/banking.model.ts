@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 import { IBankingDetails, IBillingAddress } from "../utils/definitions";
 
 export const bankSchema: Schema<IBankingDetails> = new Schema<IBankingDetails>({
@@ -18,3 +18,10 @@ export const bankSchema: Schema<IBankingDetails> = new Schema<IBankingDetails>({
     },
   },
 });
+
+const Bank: Model<IBankingDetails> = mongoose.model<IBankingDetails>(
+  "Bank",
+  bankSchema
+);
+
+export default Bank;

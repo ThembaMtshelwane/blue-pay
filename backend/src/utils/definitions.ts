@@ -11,7 +11,7 @@ export interface ITransaction {
   _id?: string;
   amount: number;
   currency: string; // e.g., 'ZAR', 'USD'
-  date: string; // ISO 8601 date string
+  date: Date; // ISO 8601 date string
   status: TransactionStatus;
   customerId: string; // Customer ID reference
   merchantId: string; // Merchant ID reference
