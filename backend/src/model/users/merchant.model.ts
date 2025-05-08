@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import mongoose, { Model, Schema } from "mongoose";
 import { IMerchant } from "../../utils/definitions";
 import { BaseUserSchema } from "../../schema/baseSchema";
 
@@ -28,3 +28,10 @@ merchantSchema.add({
     },
   ], // id of transaction ITransaction[];
 });
+
+const Merchant: Model<IMerchant> = mongoose.model<IMerchant>(
+  "Merchant",
+  merchantSchema
+);
+
+export default Merchant;
