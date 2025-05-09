@@ -55,6 +55,7 @@ export interface ICustomer extends IBaseUser {
 export interface IMerchant extends IBaseUser {
   companyName: string;
   companyID: string;
+  companyEmail: string;
   businessBankingDetails?: IBankingDetails;
   products?: string[]; // id of products IProduct[];
   transactions: string[]; // id of customer-merchant transactions ITransaction[];

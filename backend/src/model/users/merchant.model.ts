@@ -8,6 +8,7 @@ const MerchantSchema: Schema<IMerchant> =
 MerchantSchema.add({
   companyName: { type: String },
   companyID: { type: String },
+  companyEmail: { type: String},
   businessBankingDetails: {
     type: Schema.Types.ObjectId,
     ref: "Bank",
