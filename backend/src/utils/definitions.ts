@@ -7,6 +7,8 @@ export interface IProduct {
 
 export type TransactionStatus = "pending" | "completed" | "failed" | "refunded";
 
+export type ApplicationStatus = "pending" | "reject" | "approve";
+
 export interface ITransaction {
   _id?: string;
   amount: number;
@@ -55,9 +57,11 @@ export interface ICustomer extends IBaseUser {
 export interface IMerchant extends IBaseUser {
   companyName: string;
   companyID: string;
+  companyEmail: string;
   businessBankingDetails?: IBankingDetails;
   products?: string[]; // id of products IProduct[];
   transactions: string[]; // id of customer-merchant transactions ITransaction[];
+  applicationStatus: ApplicationStatus;
 }
 
 export interface IAdmin extends IBaseUser {
