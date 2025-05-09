@@ -1,7 +1,7 @@
 import expressAsyncHandler from "express-async-handler";
 import { Request, Response } from "express";
 import Admin from "../model/users/admin.model";
-import { registerService } from "../services/regsiterService";
+import { registerService } from "../services/regsiter.service";
 
 export const registerAdmin = expressAsyncHandler(
   async (req: Request, res: Response) => {
