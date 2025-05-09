@@ -1,9 +1,9 @@
-import expressAsyncHandler from "express-async-handler";
 import { INTERNAL_SERVER_ERROR, NOT_FOUND } from "../consts/http.codes";
 import HTTP_Error from "../utils/httpError";
 import Admin from "../model/users/admin.model";
 import Merchant from "../model/users/merchant.model";
 import Customer from "../model/users/customer.model";
+import { generateSecret } from "../utils/generateSecret";
 
 const modelNames = {
   admin: "Admin",
@@ -21,9 +21,16 @@ export const registerService = async (Model: any, registerBody: any) => {
   }
 
   const generatedPassword = "123";
-  const newUser = { firstName, lastName, email, password: generatedPassword };
-  let user;
 
+  const newUser = {
+    firstName,
+    lastName,
+    email,
+    password: generatedPassword,
+    accessTokenSecret: generateSecret(),
+    refreshTokenSecret: generateSecret(),
+  };
+  let user;
   if (Model.modelName === modelNames.admin) {
     user = await Admin.create({
       ...newUser,

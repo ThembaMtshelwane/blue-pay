@@ -43,6 +43,8 @@ export interface IBaseUser extends Document {
   lastName: string;
   email: string;
   password: string;
+  accessTokenSecret: string;
+  refreshTokenSecret: string;
 }
 
 export interface ICustomer extends IBaseUser {

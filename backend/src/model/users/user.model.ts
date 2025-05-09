@@ -18,6 +18,12 @@ export const BaseUserSchema: Schema<IBaseUser> = new Schema<IBaseUser>(
       required: [true, "Enter a password"],
       default: process.env.USER_PASSWORD || "",
     },
+    accessTokenSecret: {
+      type: String,
+    },
+    refreshTokenSecret: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
