@@ -4,6 +4,7 @@ import Admin from "../model/users/admin.model";
 import Merchant from "../model/users/merchant.model";
 import Customer from "../model/users/customer.model";
 import { generateSecret } from "../utils/generateSecret";
+import { generatePassword } from "../utils/generatePassword";
 
 const modelNames = {
   admin: "Admin",
@@ -12,7 +13,15 @@ const modelNames = {
 };
 
 export const registerService = async (Model: any, registerBody: any) => {
-  const { firstName, lastName, email } = registerBody;
+  const {
+    firstName,
+    lastName,
+    email,
+    companyName,
+    companyID,
+    companyEmail,
+    businessBankingDetails,
+  } = registerBody;
   console.log(registerBody);
 
   const existingUser = await Model.findOne({ email });
@@ -20,13 +29,11 @@ export const registerService = async (Model: any, registerBody: any) => {
     throw new HTTP_Error("User already exists", INTERNAL_SERVER_ERROR);
   }
 
-  const generatedPassword = "123";
-
   const newUser = {
     firstName,
     lastName,
     email,
-    password: generatedPassword,
+    password: generatePassword(),
     accessTokenSecret: generateSecret(),
     refreshTokenSecret: generateSecret(),
   };
@@ -39,6 +46,10 @@ export const registerService = async (Model: any, registerBody: any) => {
   if (Model.modelName === modelNames.merchant) {
     user = await Merchant.create({
       ...newUser,
+      companyName,
+      companyID,
+      companyEmail,
+      businessBankingDetails,
     });
   }
   if (Model.modelName === modelNames.customer) {
