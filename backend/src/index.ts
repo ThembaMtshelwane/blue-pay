@@ -7,6 +7,7 @@ import { PORT } from "./consts/env.consts";
 import connectDB from "./config/db";
 import adminRoutes from "./routes/admin.route";
 import merchantRoutes from "./routes/merchant.route";
+import customerRoutes from "./routes/customer.route";
 import { notFound, errorHandler } from "./middleware/error.middleware";
 
 connectDB();
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/admin", adminRoutes);
+app.use("/api/customer", customerRoutes);
 app.use("/api/merchant", merchantRoutes);
 
 app.get("/api", (req: Request, res: Response) => {
