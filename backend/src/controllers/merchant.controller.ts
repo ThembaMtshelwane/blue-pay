@@ -1,36 +1,17 @@
 import expressAsyncHandler from "express-async-handler";
 import { Request, Response } from "express";
-import { INTERNAL_SERVER_ERROR } from "../consts/http.codes";
-import HTTP_Error from "../utils/httpError";
 import Merchant from "../model/users/merchant.model";
-import { generatePassword } from "../utils/generatePassword";
+import { registerService } from "../services/regsiter.service";
+import { IMerchant } from "../utils/definitions";
+import { loginService } from "../services/login.service";
+import { setAccessTokenCookie, setRefreshAccessCookie } from "../utils/cookie";
 
 export const registerMerchant = expressAsyncHandler(
   async (req: Request, res: Response) => {
-    const {
-      email,
-      companyName,
-      companyID,
-      companyEmail,
-      businessBankingDetails,
-    } = req.body;
-    const existingMerchant = await Merchant.findOne({ companyID });
-    if (existingMerchant) {
-      throw new HTTP_Error("Merchant already esists", INTERNAL_SERVER_ERROR);
-    }
-
-    const newMerchant = await Merchant.create({
-      email,
-      companyName,
-      companyID,
-      companyEmail,
-      businessBankingDetails,
-      password: generatePassword(),
-    });
-
-    if (!newMerchant) {
-      throw new HTTP_Error("Failed to create user", INTERNAL_SERVER_ERROR);
-    }
+    const newMerchant = (await registerService(
+      Merchant,
+      req.body
+    )) as IMerchant;
 
     res.status(201).json({
       message: "Merchant created successfully",
@@ -39,5 +20,21 @@ export const registerMerchant = expressAsyncHandler(
         email: newMerchant.companyEmail,
       },
     });
+  }
+);
+
+export const loginMerchant = expressAsyncHandler(
+  async (req: Request, res: Response) => {
+    const user: IMerchant = await loginService(Merchant, req.body);
+    if (user) {
+      setAccessTokenCookie(res, user._id as string, user.accessTokenSecret);
+      setRefreshAccessCookie(res, user._id as string, user.refreshTokenSecret);
+
+      res.status(200).json({
+        success: true,
+        message: "User authenticated successfully",
+        data: user,
+      });
+    }
   }
 );

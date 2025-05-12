@@ -5,6 +5,7 @@ import Merchant from "../model/users/merchant.model";
 import Customer from "../model/users/customer.model";
 import { generateSecret } from "../utils/generateSecret";
 import { generatePassword } from "../utils/generatePassword";
+import { IAdmin, ICustomer, IMerchant } from "../utils/definitions";
 
 const modelNames = {
   admin: "Admin",
@@ -22,7 +23,6 @@ export const registerService = async (Model: any, registerBody: any) => {
     companyEmail,
     businessBankingDetails,
   } = registerBody;
-  console.log(registerBody);
 
   const existingUser = await Model.findOne({ email });
   if (existingUser) {
@@ -37,25 +37,34 @@ export const registerService = async (Model: any, registerBody: any) => {
     accessTokenSecret: generateSecret(),
     refreshTokenSecret: generateSecret(),
   };
-  let user;
-  if (Model.modelName === modelNames.admin) {
-    user = await Admin.create({
-      ...newUser,
-    });
-  }
-  if (Model.modelName === modelNames.merchant) {
-    user = await Merchant.create({
-      ...newUser,
-      companyName,
-      companyID,
-      companyEmail,
-      businessBankingDetails,
-    });
-  }
-  if (Model.modelName === modelNames.customer) {
-    user = await Customer.create({
-      ...newUser,
-    });
+
+  let user: IMerchant | ICustomer | IAdmin | null = null;
+
+  switch (Model.modelName) {
+    case modelNames.admin:
+      user = await Admin.create({
+        ...newUser,
+      });
+      break;
+
+    case modelNames.merchant:
+      user = await Merchant.create({
+        ...newUser,
+        companyName,
+        companyID,
+        companyEmail,
+        businessBankingDetails,
+      });
+      break;
+
+    case modelNames.customer:
+      user = await Customer.create({
+        ...newUser,
+      });
+      break;
+
+    default:
+      break;
   }
 
   if (!user) {
