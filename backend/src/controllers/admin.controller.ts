@@ -42,7 +42,6 @@ export const updateApplication = expressAsyncHandler(
   async (req: Request, res: Response) => {
     const { id } = req.params;
     const applicationStatus: IApplicationStatus = req.body.applicationStatus;
-    console.log("id  ", id);
 
     const merchant: IMerchant | null = await Merchant.findById(id);
     if (!merchant)
