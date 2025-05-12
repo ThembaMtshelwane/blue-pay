@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import { Request, Response } from "express";
 import { PORT } from "./consts/env.consts";
 import connectDB from "./config/db";
-import authRoutes from "./routes/auth.route";
+import adminRoutes from "./routes/admin.route";
 import merchantRoutes from "./routes/merchant.route";
 import { notFound, errorHandler } from "./middleware/error.middleware";
 
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/merchant", merchantRoutes);
 
 app.get("/api", (req: Request, res: Response) => {

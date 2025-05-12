@@ -5,16 +5,20 @@ export interface IProduct {
   price: number; // rounded of to two decimal points i.e cents
 }
 
-export type TransactionStatus = "pending" | "completed" | "failed" | "refunded";
+export type ITransactionStatus =
+  | "pending"
+  | "completed"
+  | "failed"
+  | "refunded";
 
-export type ApplicationStatus = "pending" | "reject" | "approve";
+export type IApplicationStatus = "pending" | "reject" | "approve";
 
 export interface ITransaction {
   _id?: string;
   amount: number;
   currency: string; // e.g., 'ZAR', 'USD'
   date: Date; // ISO 8601 date string
-  status: TransactionStatus;
+  status: ITransactionStatus;
   customerId: string; // Customer ID reference
   merchantId: string; // Merchant ID reference
   description?: string;
@@ -61,7 +65,7 @@ export interface IMerchant extends IBaseUser {
   businessBankingDetails?: IBankingDetails;
   products?: string[]; // id of products IProduct[];
   transactions: string[]; // id of customer-merchant transactions ITransaction[];
-  applicationStatus: ApplicationStatus;
+  applicationStatus: IApplicationStatus;
 }
 
 export interface IAdmin extends IBaseUser {
