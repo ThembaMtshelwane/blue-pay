@@ -17,7 +17,7 @@ MerchantSchema.add({
   products: [
     {
       type: Schema.Types.ObjectId,
-      ref: "Bank",
+      ref: "Product",
       default: null,
     },
   ], // id of products IProduct[];

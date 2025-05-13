@@ -2,7 +2,9 @@ import mongoose, { Document } from "mongoose";
 
 export interface IProduct {
   name: string;
+  image: string;
   price: number; // rounded of to two decimal points i.e cents
+  quantity: Number;
 }
 
 export type ITransactionStatus =

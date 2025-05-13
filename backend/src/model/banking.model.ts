@@ -1,5 +1,5 @@
 import mongoose, { Model, Schema } from "mongoose";
-import { IBankingDetails, IBillingAddress } from "../utils/definitions";
+import { IBankingDetails } from "../utils/definitions";
 
 export const bankSchema: Schema<IBankingDetails> = new Schema<IBankingDetails>({
   bankName: { type: String },
